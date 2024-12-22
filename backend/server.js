@@ -13,7 +13,7 @@ const db = mysql.createConnection({
     host: "localhost",
     user: "root",
     password: "ArtAmbika23",
-    database: "social_app", // Replace with your database name
+    database: "social_app", 
 });
 
 db.connect((err) => {
@@ -79,6 +79,43 @@ app.post("/api/login", (req, res) => {
         res.send("Login successful.");
     });
 });
+
+
+// update acc endqpoint
+app.post("/api/updateProfile", (req, res) => {
+    const { oldUsername, newUsername } = req.body;
+  
+    const query = "UPDATE users SET username = ? WHERE username = ?";
+    db.query(query, [newUsername, oldUsername], (err, results) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).send("Internal server error.");
+      }
+      if (results.affectedRows === 0) {
+        return res.status(400).send("User not found.");
+      }
+      res.status(200).send("Profile updated successfully.");
+    });
+  });
+
+  
+//delete acount endpoint
+app.delete("/api/deleteAccount", (req, res) => {
+    const { username } = req.body;
+  
+    const query = "DELETE FROM users WHERE username = ?";
+    db.query(query, [username], (err, results) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).send("Internal server error.");
+      }
+      if (results.affectedRows === 0) {
+        return res.status(400).send("User not found.");
+      }
+      res.status(200).send("Account deleted successfully.");
+    });
+  });
+  
 
 // Start server
 app.listen(5000, () => {

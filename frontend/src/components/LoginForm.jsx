@@ -26,7 +26,7 @@ const LoginForm = ({ setLoggedInUser }) => {
 
   const handleRegister = async () => {
     try {
-      console.log("Sending register request:", { username, password }); // Debug log
+      console.log("Sending register request:", { username, password }); 
       const res = await fetch("http://localhost:5000/api/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -34,7 +34,7 @@ const LoginForm = ({ setLoggedInUser }) => {
       });
   
       const data = await res.text();
-      console.log("Register response:", res.status, data); // Debug log
+      console.log("Register response:", res.status, data); 
   
       if (res.status === 200) {
         setMessage("Registration successful! Please log in.");
