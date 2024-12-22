@@ -13,6 +13,17 @@ const PostsPage = ({ username, handleLogout }) => {
             .catch((err) => console.error("Error fetching posts:", err));
     }, []);
 
+    // Adjust content padding dynamically
+    useEffect(() => {
+        const navbarHeight = document.querySelector(".navbar").offsetHeight;
+        document.querySelector(".content").style.paddingTop = `${navbarHeight}px`;
+    }, []);
+
+    const logout = () => {
+        handleLogout();
+        navigate("/");
+    };
+
     const toggleLike = async (postId) => {
       try {
           const res = await fetch("http://localhost:5000/api/toggleLike", {
@@ -77,12 +88,6 @@ const PostsPage = ({ username, handleLogout }) => {
     }
 };
 
-  
-
-    const logout = () => {
-        handleLogout();
-        navigate("/");
-    };
 
     return (
         <div className="page-container">

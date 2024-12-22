@@ -3,13 +3,13 @@ body {
   padding: 0;
   font-family: Arial, sans-serif;
   background: linear-gradient(to right, #dadce1, #e7e8e9);
-  height: 100vh;
+  min-height: 100vh; /* Ensure the body takes the full height */
 }
 
 .page-container {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  min-height: 100vh;
   width: 100%;
 }
 
@@ -26,6 +26,7 @@ body {
   left: 0;
   z-index: 1000;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  height: 60px;
 }
 
 .navbar-left {
@@ -83,20 +84,14 @@ body {
   box-shadow: 0px 4px 8px rgba(239, 83, 80, 0.3);
 }
 
-
-
 .content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  width: 30em;
-  justify-content: center;
-  align-items: center;
-  font-size: 24px;
-  color: #333;
-  margin-top: 50em;
-
-  
+  position: absolute;
+  top: 10px; 
+  left: 50%; 
+  transform: translateX(-50%); 
+  width: 100%; 
+  max-width: 800px; 
+  margin: 0 auto; 
 }
 
 .add-post-button {
@@ -123,8 +118,8 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 25 em; 
-  margin: 0 auto; 
+  margin: 20px 0; 
+
 }
 
 .post-username {
@@ -142,7 +137,7 @@ body {
 }
 
 .post-text {
-  font-size: 18px; 
+  font-size: 18px;
   color: #555;
   text-align: center;
   line-height: 1.5;
@@ -154,13 +149,13 @@ body {
   justify-content: space-between;
   width: 100%;
   margin: 10px 0;
-  font-size: 14px; 
+  font-size: 14px;
   color: #666;
 }
 
 .buttons-container {
   display: flex;
-  justify-content:flex-start;
+  justify-content: flex-start;
   gap: 10px;
   margin-bottom: 10px;
 }
@@ -174,7 +169,6 @@ body {
   cursor: pointer;
   transition: background-color 0.3s ease-in-out;
   text-align: center;
-  align-items: left;
 }
 
 .like-button {
@@ -241,8 +235,11 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2em; 
+  gap: 2em;
   width: 100%;
   padding: 20px;
   box-sizing: border-box;
+    position: relative; /* Keeps posts relative within the content */
+    width: 100%; /* Make sure it spans the full width */
+
 }

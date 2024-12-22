@@ -251,6 +251,30 @@ db.query(query, (err, results) => {
 });
 
 
+// Delete Post 
+app.delete("/api/deletePost", (req, res) => {
+    const { postId } = req.body;
+
+    if (!postId) {
+        return res.status(400).send("Post ID is required.");
+    }
+
+    const query = "DELETE FROM posts WHERE id = ?";
+    db.query(query, [postId], (err, results) => {
+        if (err) {
+            console.error("Error deleting post:", err);
+            return res.status(500).send("Internal server error.");
+        }
+
+        if (results.affectedRows === 0) {
+            return res.status(404).send("Post not found.");
+        }
+
+        res.status(200).send("Post deleted successfully.");
+    });
+});
+
+
 
 // Start server
 app.listen(5000, () => {
