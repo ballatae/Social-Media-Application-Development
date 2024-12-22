@@ -214,27 +214,34 @@ app.post("/api/toggleLike", (req, res) => {
 // Get all posts
 app.get("/api/getPosts", (req, res) => {
     const query = `
-        SELECT 
-            posts.id,
-            posts.username,
-            posts.text,
-            posts.photo,
-            COUNT(likes.id) AS likes,
-            COUNT(comments.id) AS comments
-        FROM posts
-        LEFT JOIN likes ON posts.id = likes.post_id
-        LEFT JOIN comments ON posts.id = comments.post_id
-        GROUP BY posts.id
-        ORDER BY posts.created_at DESC;
-    `;
+    SELECT 
+        posts.id,
+        posts.username,
+        posts.text,
+        posts.photo,
+        COUNT(likes.id) AS likes,
+        COUNT(comments.id) AS comments,
+        GROUP_CONCAT(comments.comment SEPARATOR '|') AS commentsList
+    FROM posts
+    LEFT JOIN likes ON posts.id = likes.post_id
+    LEFT JOIN comments ON posts.id = comments.post_id
+    GROUP BY posts.id
+    ORDER BY posts.created_at DESC;
+`;
 
-    db.query(query, (err, results) => {
-        if (err) {
-            console.error("Error fetching posts:", err);
-            return res.status(500).send("Internal server error.");
-        }
-        res.status(200).json(results);
-    });
+db.query(query, (err, results) => {
+    if (err) {
+        console.error("Error fetching posts:", err);
+        return res.status(500).send("Internal server error.");
+    }
+
+    const formattedResults = results.map((post) => ({
+        ...post,
+        commentsList: post.commentsList ? post.commentsList.split('|') : [],
+    }));
+
+    res.status(200).json(formattedResults);
+});
 });
 
 

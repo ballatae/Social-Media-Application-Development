@@ -54,7 +54,6 @@ button {
   cursor: pointer;
   transition: background-color 0.3s ease-in-out, box-shadow 0.2s ease-in-out;
   color: white;
-  cursor: pointer;
 }
 
 .profile-button {
@@ -109,7 +108,7 @@ button {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%; /* Adjust to fit content */
+  width: 100%;
 }
 
 .post-username {
@@ -127,61 +126,95 @@ button {
 }
 
 .post-text {
-  font-size: 16px;
+  font-size: 18px; /* Increased font size for description */
   color: #555;
   text-align: center;
   line-height: 1.5;
   word-wrap: break-word;
 }
 
+.post-info {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin: 10px 0;
+  font-size: 14px; /* Smaller font size */
+  color: #666;
+}
 
-.like-button {
-  background-color: #247eba;
-  border: none;
-  border-radius: 5px;
-  color: white;
-  padding: 10px 15px;
+.buttons-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.like-button,
+.comment-button {
+  width: 80px; /* Reduced width for buttons */
+  padding: 8px 12px;
   font-size: 14px;
+  border-radius: 5px;
   cursor: pointer;
-  margin: 5px;
   transition: background-color 0.3s ease-in-out;
 }
 
+.like-button {
+  background-color: #247eba;
+  color: white;
+}
+
 .like-button.liked {
-  background-color: #ef5350;
+  background-color: #28a745;
 }
 
 .like-button:hover {
   background-color: #1c6fa8;
 }
 
-.post-likes {
-  font-size: 14px;
-  color: #666;
-  margin-top: 5px;
-  text-align: center;
-}
-
-
-.like-button {
-  background-color: #247eba; 
-  border: none;
-  border-radius: 5px;
-  color: white;
-  padding: 10px 15px;
-  font-size: 14px;
-  cursor: pointer;
-  margin: 5px;
-}
-
-.like-button.liked {
-  background-color: #28a745; 
-}
-
-.like-button:hover {
-  background-color: #1c6fa8; 
-}
-
 .like-button.liked:hover {
-  background-color: #218838; 
+  background-color: #218838;
+}
+
+.comment-button {
+  background-color: #28a745;
+  color: white;
+}
+
+.comment-button:hover {
+  background-color: #218838;
+}
+
+.comment-input {
+  width: 90%;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.comments-section {
+  margin-top: 10px;
+  text-align: left;
+  width: 100%;
+  padding: 5px;
+  border-top: 1px solid #ddd;
+}
+
+.comments-header {
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #444;
+}
+
+.comment-text {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+.no-comments {
+  font-size: 14px;
+  color: #aaa;
+  text-align: center;
 }
