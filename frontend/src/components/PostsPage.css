@@ -1,103 +1,187 @@
 body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    background: linear-gradient(to right, #dadce1, #e7e8e9);
-    height: 100vh;
-  }
-  
-  .page-container {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    width: 100%;
-  }
-  
-  .navbar {
-    width: 100%;
-    background-color: #f8f9fa;
-    border-bottom: 1px solid #dcdcdc;
-    color: #333;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px; /* Space inside the navbar */
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1000;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  }
-  
-  .navbar-left {
-    font-size: 20px;
-    font-weight: bold;
-    cursor: pointer;
-  }
-  
-  .navbar-left .active {
-    color: #1976d2;
-    text-decoration: none;
-  }
-  
-  .navbar-right {
-    display: flex;
-    gap: 15px; 
-    margin-right: 2em; 
-  }
-  
-  button {
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-size: 14px;
-    cursor: pointer;
-    transition: background-color 0.3s ease-in-out, box-shadow 0.2s ease-in-out;
-    color: white;
-    cursor: pointer;
-  }
-  
-  .profile-button {
-    background-color: #64b5f6;
-  }
-  
-  .profile-button:hover {
-    background-color: #42a5f5;
-    box-shadow: 0px 4px 8px rgba(66, 165, 245, 0.3);
-  }
-  
-  .logout-button {
-    background-color: #ef5350;
-  }
-  
-  .logout-button:hover {
-    background-color: #e57373;
-    box-shadow: 0px 4px 8px rgba(239, 83, 80, 0.3);
-  }
-  
-  .content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    font-size: 24px;
-    color: #333;
-    margin-top: 60px; /* Offset to avoid overlap with fixed navbar */
-  }
-  
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to right, #dadce1, #e7e8e9);
+  height: 100vh;
+}
 
-  .add-post-button{
-    background-color: #247eba;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    width: 100%;
-  }
+.page-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+}
 
-  .add-post-button:hover{
-    background-color: #1c6fa8;
-  }
+.navbar {
+  width: 100%;
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #dcdcdc;
+  color: #333;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-left {
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.navbar-left .active {
+  color: #1976d2;
+  text-decoration: none;
+}
+
+.navbar-right {
+  display: flex;
+  gap: 15px;
+  margin-right: 2em;
+}
+
+button {
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out, box-shadow 0.2s ease-in-out;
+  color: white;
+  cursor: pointer;
+}
+
+.profile-button {
+  background-color: #64b5f6;
+}
+
+.profile-button:hover {
+  background-color: #42a5f5;
+  box-shadow: 0px 4px 8px rgba(66, 165, 245, 0.3);
+}
+
+.logout-button {
+  background-color: #ef5350;
+}
+
+.logout-button:hover {
+  background-color: #e57373;
+  box-shadow: 0px 4px 8px rgba(239, 83, 80, 0.3);
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  color: #333;
+  margin-top: 60px;
+}
+
+.add-post-button {
+  background-color: #247eba;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  margin: 10px 0;
+}
+
+.add-post-button:hover {
+  background-color: #1c6fa8;
+}
+
+.post-card {
+  background-color: white;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%; /* Adjust to fit content */
+}
+
+.post-username {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.post-image {
+  max-width: 15em;
+  height: auto;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.post-text {
+  font-size: 16px;
+  color: #555;
+  text-align: center;
+  line-height: 1.5;
+  word-wrap: break-word;
+}
+
+
+.like-button {
+  background-color: #247eba;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  padding: 10px 15px;
+  font-size: 14px;
+  cursor: pointer;
+  margin: 5px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.like-button.liked {
+  background-color: #ef5350;
+}
+
+.like-button:hover {
+  background-color: #1c6fa8;
+}
+
+.post-likes {
+  font-size: 14px;
+  color: #666;
+  margin-top: 5px;
+  text-align: center;
+}
+
+
+.like-button {
+  background-color: #247eba; 
+  border: none;
+  border-radius: 5px;
+  color: white;
+  padding: 10px 15px;
+  font-size: 14px;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.like-button.liked {
+  background-color: #28a745; 
+}
+
+.like-button:hover {
+  background-color: #1c6fa8; 
+}
+
+.like-button.liked:hover {
+  background-color: #218838; 
+}

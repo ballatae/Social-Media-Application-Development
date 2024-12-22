@@ -155,78 +155,88 @@ app.post("/api/addPost", upload.single("photo"), (req, res) => {
 
 //add comment
 app.post("/api/addComment", (req, res) => {
-    const { postId, comment } = req.body;
+    const { postId, username, comment } = req.body;
 
-    if (!postId || !comment) {
-        return res.status(400).send("Post ID and comment are required.");
+    if (!postId || !username || !comment) {
+        return res.status(400).send("Post ID, username, and comment are required.");
     }
 
-    const getCommentsQuery = "SELECT comments FROM posts WHERE id = ?";
-    db.query(getCommentsQuery, [postId], (err, results) => {
+    const query = "INSERT INTO comments (post_id, username, comment) VALUES (?, ?, ?)";
+    db.query(query, [postId, username, comment], (err) => {
         if (err) {
-            console.error(err);
+            console.error("Error adding comment:", err);
             return res.status(500).send("Internal server error.");
         }
-
-        if (results.length === 0) {
-            return res.status(404).send("Post not found.");
-        }
-
-        const existingComments = JSON.parse(results[0].comments || "[]");
-        existingComments.push(comment);
-
-        const updateCommentsQuery = "UPDATE posts SET comments = ? WHERE id = ?";
-        db.query(updateCommentsQuery, [JSON.stringify(existingComments), postId], (err, results) => {
-            if (err) {
-                console.error(err);
-                return res.status(500).send("Internal server error.");
-            }
-            res.status(200).send("Comment added successfully.");
-        });
+        res.status(200).send("Comment added successfully.");
     });
 });
+
 
 //like
 app.post("/api/toggleLike", (req, res) => {
     const { postId, username } = req.body;
 
-    const queryGetLikes = "SELECT likes, likedBy FROM posts WHERE id = ?";
-    db.query(queryGetLikes, [postId], (err, results) => {
+    const queryGetLikes = "SELECT * FROM likes WHERE post_id = ? AND username = ?";
+    db.query(queryGetLikes, [postId, username], (err, results) => {
         if (err) {
-            console.error(err);
-            return res.status(500).send("Internal server error.");
+            console.error("Error checking like:", err);
+            return res.status(500).json({ message: "Internal server error." });
         }
 
-        if (results.length === 0) {
-            return res.status(404).send("Post not found.");
-        }
-
-        const { likes, likedBy } = results[0];
-        const likedByArray = likedBy ? JSON.parse(likedBy) : [];
-
-        if (likedByArray.includes(username)) {
-            const updatedLikedBy = likedByArray.filter(user => user !== username);
-            const queryUpdateLikes = "UPDATE posts SET likes = ?, likedBy = ? WHERE id = ?";
-            db.query(queryUpdateLikes, [likes - 1, JSON.stringify(updatedLikedBy), postId], (err) => {
+        if (results.length > 0) {
+            // Unlike the post
+            const queryDelete = "DELETE FROM likes WHERE post_id = ? AND username = ?";
+            db.query(queryDelete, [postId, username], (err) => {
                 if (err) {
-                    console.error(err);
-                    return res.status(500).send("Internal server error.");
+                    console.error("Error unliking post:", err);
+                    return res.status(500).json({ message: "Internal server error." });
                 }
-                res.status(200).send("Like removed.");
+                res.status(200).json({ message: "Like removed." });
             });
         } else {
-            likedByArray.push(username);
-            const queryUpdateLikes = "UPDATE posts SET likes = ?, likedBy = ? WHERE id = ?";
-            db.query(queryUpdateLikes, [likes + 1, JSON.stringify(likedByArray), postId], (err) => {
+            // Like the post
+            const queryInsert = "INSERT INTO likes (post_id, username) VALUES (?, ?)";
+            db.query(queryInsert, [postId, username], (err) => {
                 if (err) {
-                    console.error(err);
-                    return res.status(500).send("Internal server error.");
+                    console.error("Error liking post:", err);
+                    return res.status(500).json({ message: "Internal server error." });
                 }
-                res.status(200).send("Like added.");
+                res.status(200).json({ message: "Like added." });
             });
         }
     });
 });
+
+
+
+
+
+// Get all posts
+app.get("/api/getPosts", (req, res) => {
+    const query = `
+        SELECT 
+            posts.id,
+            posts.username,
+            posts.text,
+            posts.photo,
+            COUNT(likes.id) AS likes,
+            COUNT(comments.id) AS comments
+        FROM posts
+        LEFT JOIN likes ON posts.id = likes.post_id
+        LEFT JOIN comments ON posts.id = comments.post_id
+        GROUP BY posts.id
+        ORDER BY posts.created_at DESC;
+    `;
+
+    db.query(query, (err, results) => {
+        if (err) {
+            console.error("Error fetching posts:", err);
+            return res.status(500).send("Internal server error.");
+        }
+        res.status(200).json(results);
+    });
+});
+
 
 
 // Start server

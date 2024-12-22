@@ -28,8 +28,6 @@ const AddPostPage = ({ username, handleAddPost }) => {
                 setMessage("Post added successfully!");
                 setText("");
                 setPhoto(null);
-
-                // Reset message after 3 seconds
                 setTimeout(() => setMessage(""), 3000);
             } else {
                 setMessage(data);

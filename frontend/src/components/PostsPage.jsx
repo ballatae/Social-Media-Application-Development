@@ -7,7 +7,6 @@ const PostsPage = ({ username, handleLogout }) => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        // Fetch posts from the backend
         fetch("http://localhost:5000/api/getPosts")
             .then((res) => res.json())
             .then((data) => setPosts(data))
@@ -15,34 +14,40 @@ const PostsPage = ({ username, handleLogout }) => {
     }, []);
 
     const toggleLike = async (postId) => {
-        try {
-            const res = await fetch("http://localhost:5000/api/toggleLike", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ postId, username }),
-            });
-
-            if (res.status === 200) {
-                setPosts((prevPosts) =>
-                    prevPosts.map((post) =>
-                        post.id === postId
-                            ? {
-                                  ...post,
-                                  likes: post.likedBy.includes(username)
-                                      ? post.likes - 1
-                                      : post.likes + 1,
-                                  likedBy: post.likedBy.includes(username)
-                                      ? post.likedBy.filter((user) => user !== username)
-                                      : [...post.likedBy, username],
-                              }
-                            : post
-                    )
-                );
-            }
-        } catch (err) {
-            console.error("Error toggling like:", err);
-        }
-    };
+      try {
+          const res = await fetch("http://localhost:5000/api/toggleLike", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ postId, username }),
+          });
+  
+          const data = await res.json(); // Parse JSON response
+          if (res.status === 200) {
+              setPosts((prevPosts) =>
+                  prevPosts.map((post) =>
+                      post.id === postId
+                          ? {
+                                ...post,
+                                likes: data.message === "Like added."
+                                    ? post.likes + 1
+                                    : post.likes - 1,
+                                likedBy: data.message === "Like added."
+                                    ? [...(post.likedBy || []), username]
+                                    : (post.likedBy || []).filter((user) => user !== username),
+                            }
+                          : post
+                  )
+              );
+          } else {
+              console.error("Error toggling like:", data.message);
+          }
+      } catch (err) {
+          console.error("Error toggling like:", err);
+      }
+  };
+  
+  
+  
 
     const logout = () => {
         handleLogout();
@@ -66,29 +71,36 @@ const PostsPage = ({ username, handleLogout }) => {
             </nav>
             <div className="content">
                 <h2>Hello, {username}</h2>
-                <button
-                    className="add-post-button"
-                    onClick={() => navigate("/add-post")}
-                >
+                <button className="add-post-button" onClick={() => navigate("/add-post")}>
                     Add New Post
                 </button>
                 <div className="posts-list">
-                    {posts.map((post) => (
-                        <div key={post.id} className="post-card">
-                            <img src={post.photo} alt="Post" />
-                            <p>{post.text}</p>
-                            <button
-                                className={`like-button ${
-                                    post.likedBy.includes(username) ? "liked" : ""
-                                }`}
-                                onClick={() => toggleLike(post.id)}
-                            >
-                                {post.likedBy.includes(username) ? "Unlike" : "Like"}
-                            </button>
-                            <span>{post.likes} Likes</span>
-                        </div>
-                    ))}
-                </div>
+    {posts.map((post) => {
+        const isLiked = (post.likedBy || []).includes(username); 
+        return (
+            <div key={post.id} className="post-card">
+                <h3 className="post-username">{post.username}</h3>
+                <img
+                    src={`http://localhost:5000${post.photo}`}
+                    alt="Post"
+                    className="post-image"
+                />
+                <p className="post-text">{post.text}</p>
+                <span>{post.likes} Likes</span>
+                <button
+                    className={`like-button ${isLiked ? "liked" : ""}`}
+                    onClick={() => toggleLike(post.id)}
+                >
+                    {isLiked ? "Liked" : "Like"}
+                </button>
+                
+            </div>
+        );
+    })}
+</div>
+
+
+
             </div>
         </div>
     );
