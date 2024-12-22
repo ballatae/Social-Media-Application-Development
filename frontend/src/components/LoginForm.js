@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import "./LoginForm.css";
+
 
 const LoginForm = ({ setLoggedInUser }) => {
   const [username, setUsername] = useState("");
@@ -48,39 +50,55 @@ const LoginForm = ({ setLoggedInUser }) => {
   
 
   return (
-    <div>
-      <h2>{isRegistering ? "Register" : "Login"}</h2>
-      <input
-        type="text"
-        placeholder="Username"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      {isRegistering ? (
-        <button onClick={handleRegister}>Register</button>
-      ) : (
-        <button onClick={handleLogin}>Login</button>
-      )}
-      <p>{message}</p>
-      <p>
+    <div className="form-container">
+      <div className="form-box">
+        <h2>{isRegistering ? "Register" : "Login"}</h2>
+        <input
+          type="text"
+          placeholder="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
         {isRegistering ? (
-          <span>
-            Already have an account?{" "}
-            <button onClick={() => setIsRegistering(false)}>Login</button>
-          </span>
+          <button className="register-button" onClick={handleRegister}>
+            Register
+          </button>
         ) : (
-          <span>
-            Don't have an account?{" "}
-            <button onClick={() => setIsRegistering(true)}>Register</button>
-          </span>
+          <button className="login-button" onClick={handleLogin}>
+            Login
+          </button>
         )}
-      </p>
+        <p>{message}</p>
+        <p>
+          {isRegistering ? (
+            <span>
+              Already have an account?{" "}
+              <button
+                className="switch-button"
+                onClick={() => setIsRegistering(false)}
+              >
+                Login
+              </button>
+            </span>
+          ) : (
+            <span>
+              Don't have an account?{" "}
+              <button
+                className="switch-button"
+                onClick={() => setIsRegistering(true)}
+              >
+                Register
+              </button>
+            </span>
+          )}
+        </p>
+      </div>
     </div>
   );
 };
