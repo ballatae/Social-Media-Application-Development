@@ -5,13 +5,17 @@ import "./PostsPage.css";
 const PostsPage = ({ username, handleLogout }) => {
     const [posts, setPosts] = useState([]);
     const [searchTerm, setSearchTerm] = useState(""); 
+    const [originalPosts, setOriginalPosts] = useState([]);
     const [searchError, setSearchError] = useState("")
     const navigate = useNavigate();
 
     useEffect(() => {
         fetch("http://localhost:5000/api/getPosts")
             .then((res) => res.json())
-            .then((data) => setPosts(data))
+            .then((data) => {
+                setPosts(data);
+                setOriginalPosts(data); // in order to save the order of the posts
+            })
             .catch((err) => console.error("Error fetching posts:", err));
     }, []);
 
@@ -34,7 +38,7 @@ const PostsPage = ({ username, handleLogout }) => {
               body: JSON.stringify({ postId, username }),
           });
   
-          const data = await res.json(); // Parse JSON response
+          const data = await res.json(); 
           if (res.status === 200) {
               setPosts((prevPosts) =>
                   prevPosts.map((post) =>
@@ -126,6 +130,16 @@ const shakeInput = () => {
     setTimeout(() => input.classList.remove("shake"), 500);
 };
 
+
+const sortByLikes = () => {
+    const sortedPosts = [...posts].sort((a, b) => b.likes - a.likes);
+    setPosts(sortedPosts);
+}
+
+const resetOrder = () => {
+    setPosts([...originalPosts]);
+}
+
     return (
         <div className="page-container">
             <nav className="navbar">
@@ -164,6 +178,12 @@ const shakeInput = () => {
                         {searchError && (
                             <p className="error-message">{searchError}</p>
                         )}
+                        <button className="sort_button" onClick={sortByLikes}>
+                            Sort by Likes
+                        </button>
+                        <button className="reset_button" onClick={resetOrder}>
+                            Reset Order
+                        </button>
                     </div>
                 </div>
 

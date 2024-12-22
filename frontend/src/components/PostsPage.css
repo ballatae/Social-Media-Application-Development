@@ -247,7 +247,7 @@ body {
 /* Search bar styles */
 .sidebar {
   position: relative;
-  top: -18rem;
+  top: -15rem;
   left: -40rem;
 }
 
@@ -306,4 +306,16 @@ body {
   75% {
       transform: translateX(-5px);
   }
+}
+
+
+.sort_button, .reset_button {
+  background-color: #247eba;
+  color: white;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 8rem;
 }
