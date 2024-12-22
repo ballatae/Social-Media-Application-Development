@@ -17,7 +17,6 @@ body {
   width: 100%;
   background-color: #f8f9fa;
   border-bottom: 1px solid #dcdcdc;
-  color: #333;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -32,37 +31,47 @@ body {
 .navbar-left {
   font-size: 20px;
   font-weight: bold;
+  color: #1976d2;
   cursor: pointer;
 }
 
-.navbar-left .active {
-  color: #1976d2;
+.navbar-left .navbar-home {
   text-decoration: none;
+  color: #1976d2;
 }
 
 .navbar-right {
   display: flex;
+  align-items: center;
   gap: 15px;
   margin-right: 2em;
 }
 
-button {
-  border: none;
+.navbar-hello {
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+}
+
+.navbar-buttons {
+  display: flex;
+  gap: 15px;
+}
+
+.navbar-button {
+  background-color: #247eba;
+  color: white;
   padding: 10px 20px;
+  border: none;
   border-radius: 5px;
   font-size: 14px;
   cursor: pointer;
   transition: background-color 0.3s ease-in-out, box-shadow 0.2s ease-in-out;
-  color: white;
 }
 
-.profile-button {
-  background-color: #64b5f6;
-}
-
-.profile-button:hover {
-  background-color: #42a5f5;
-  box-shadow: 0px 4px 8px rgba(66, 165, 245, 0.3);
+.navbar-button:hover {
+  background-color: #1c6fa8;
+  box-shadow: 0px 4px 8px rgba(36, 126, 186, 0.3);
 }
 
 .logout-button {
@@ -74,15 +83,20 @@ button {
   box-shadow: 0px 4px 8px rgba(239, 83, 80, 0.3);
 }
 
+
+
 .content {
   flex: 1;
   display: flex;
   flex-direction: column;
+  width: 30em;
   justify-content: center;
   align-items: center;
   font-size: 24px;
   color: #333;
-  margin-top: 60px;
+  margin-top: 50em;
+
+  
 }
 
 .add-post-button {
@@ -104,11 +118,13 @@ button {
   background-color: white;
   border-radius: 10px;
   padding: 15px;
+  width: 30em;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
+  width: 25 em; 
+  margin: 0 auto; 
 }
 
 .post-username {
@@ -119,14 +135,14 @@ button {
 }
 
 .post-image {
-  max-width: 15em;
-  height: auto;
+  width: 27em;
+  height: 20em;
   border-radius: 5px;
   margin-bottom: 10px;
 }
 
 .post-text {
-  font-size: 18px; /* Increased font size for description */
+  font-size: 18px; 
   color: #555;
   text-align: center;
   line-height: 1.5;
@@ -138,25 +154,27 @@ button {
   justify-content: space-between;
   width: 100%;
   margin: 10px 0;
-  font-size: 14px; /* Smaller font size */
+  font-size: 14px; 
   color: #666;
 }
 
 .buttons-container {
   display: flex;
-  justify-content: center;
+  justify-content:flex-start;
   gap: 10px;
   margin-bottom: 10px;
 }
 
 .like-button,
 .comment-button {
-  width: 80px; /* Reduced width for buttons */
+  width: 80px;
   padding: 8px 12px;
   font-size: 14px;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease-in-out;
+  text-align: center;
+  align-items: left;
 }
 
 .like-button {
@@ -217,4 +235,14 @@ button {
   font-size: 14px;
   color: #aaa;
   text-align: center;
+}
+
+.posts-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2em; 
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
 }

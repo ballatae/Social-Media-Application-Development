@@ -87,23 +87,27 @@ const PostsPage = ({ username, handleLogout }) => {
     return (
         <div className="page-container">
             <nav className="navbar">
-                <div className="navbar-left">
-                    <span className="active">Home</span>
-                </div>
-                <div className="navbar-right">
-                    <button className="profile-button" onClick={() => navigate("/profile")}>
-                        Profile
-                    </button>
-                    <button className="logout-button" onClick={logout}>
-                        Logout
-                    </button>
-                </div>
+              <div className="navbar-left">
+                <span className="navbar-home">Home</span>
+              </div>
+              <div className="navbar-right">
+                <h2 className="navbar-hello">Hello, {username}</h2>
+                <div className="navbar-buttons">
+                 <button className="navbar-button" onClick={() => navigate("/add-post")}>
+                    New Post
+                 </button>
+                  <button className="navbar-button" onClick={() => navigate("/profile")}>
+                    Profile
+                  </button>
+                  <button className="navbar-button logout-button" onClick={logout}>
+                    Logout
+                 </button>
+               </div>
+             </div>
             </nav>
+
             <div className="content">
-                <h2>Hello, {username}</h2>
-                <button className="add-post-button" onClick={() => navigate("/add-post")}>
-                    Add New Post
-                </button>
+                
                 <div className="posts-list">
                 {posts.map((post) => {
     const isLiked = (post.likedBy || []).includes(username); 

@@ -6,11 +6,11 @@ const ProfilePage = ({ username, handleLogout }) => {
   const navigate = useNavigate();
   const [isEditing, setIsEditing] = useState(false);
   const [updatedUsername, setUpdatedUsername] = useState(username);
-  const [tempUsername, setTempUsername] = useState(username); 
+  const [tempUsername, setTempUsername] = useState(username);
   const [message, setMessage] = useState("");
 
   const handleEdit = () => {
-    setTempUsername(updatedUsername); 
+    setTempUsername(updatedUsername);
     setIsEditing(true);
   };
 
@@ -19,9 +19,12 @@ const ProfilePage = ({ username, handleLogout }) => {
       const res = await fetch("http://localhost:5000/api/updateProfile", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ oldUsername: updatedUsername, newUsername: tempUsername }),
+        body: JSON.stringify({
+          oldUsername: updatedUsername,
+          newUsername: tempUsername,
+        }),
       });
-  
+
       const data = await res.text();
       if (res.status === 200) {
         setUpdatedUsername(tempUsername);
@@ -35,7 +38,6 @@ const ProfilePage = ({ username, handleLogout }) => {
       setMessage("An error occurred. Please try again.");
     }
   };
-  
 
   const handleDeleteAccount = async () => {
     try {
@@ -59,27 +61,47 @@ const ProfilePage = ({ username, handleLogout }) => {
 
   return (
     <div className="page-container">
+      {/* Navbar */}
       <nav className="navbar">
         <div className="navbar-left">
-          <span className="active" onClick={() => navigate("/posts")}>
+          <span className="navbar-home" onClick={() => navigate("/posts")}>
             Home
           </span>
         </div>
         <div className="navbar-right">
-          <button className="profile-button">Profile</button>
-          <button className="logout-button" onClick={handleLogout}>
-            Logout
-          </button>
+          <h2 className="navbar-hello">Hello, {username}</h2>
+          <div className="navbar-buttons">
+            <button
+              className="navbar-button"
+              onClick={() => navigate("/add-post")}
+            >
+              New Post
+            </button>
+            <button
+              className="navbar-button"
+              onClick={() => navigate("/profile")}
+            >
+              Profile
+            </button>
+            <button
+              className="navbar-button logout-button"
+              onClick={handleLogout}
+            >
+              Logout
+            </button>
+          </div>
         </div>
       </nav>
+
+      {/* Profile Section */}
       <div className="profile-container">
         <h2>Profile</h2>
         <div className="profile-field">
-          <h4>{updatedUsername}</h4> {/*displaying her ethe act username*/ }
+          <h4>{updatedUsername}</h4>
           {isEditing ? (
             <input
               type="text"
-              value={tempUsername} 
+              value={tempUsername}
               onChange={(e) => setTempUsername(e.target.value)}
             />
           ) : (

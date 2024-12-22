@@ -141,8 +141,8 @@ app.post("/api/addPost", upload.single("photo"), (req, res) => {
     // If a photo is uploaded, save its path
     const photoPath = req.file ? `/uploads/${req.file.filename}` : null;
 
-    const query = "INSERT INTO posts (username, text, photo, likedBy, comments) VALUES (?, ?, ?, ?, ?)";
-    db.query(query, [username, text, photoPath, '[]', '[]'], (err, results) => {
+    const query = "INSERT INTO posts (username, text, photo) VALUES (?, ?, ?)";
+    db.query(query, [username, text, photoPath], (err, results) => {
         if (err) {
             console.error(err);
             return res.status(500).send("Internal server error.");
@@ -221,7 +221,7 @@ app.get("/api/getPosts", (req, res) => {
         posts.photo,
         COUNT(likes.id) AS likes,
         COUNT(comments.id) AS comments,
-        GROUP_CONCAT(comments.comment SEPARATOR '|') AS commentsList
+        GROUP_CONCAT(CONCAT(comments.username, ':', comments.comment) SEPARATOR '|') AS commentsList
     FROM posts
     LEFT JOIN likes ON posts.id = likes.post_id
     LEFT JOIN comments ON posts.id = comments.post_id
@@ -237,11 +237,17 @@ db.query(query, (err, results) => {
 
     const formattedResults = results.map((post) => ({
         ...post,
-        commentsList: post.commentsList ? post.commentsList.split('|') : [],
+        commentsList: post.commentsList
+            ? post.commentsList.split('|').map((comment) => {
+                  const [username, text] = comment.split(':');
+                  return { username, text };
+              })
+            : [],
     }));
 
     res.status(200).json(formattedResults);
 });
+
 });
 
 
