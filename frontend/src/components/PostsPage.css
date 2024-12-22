@@ -239,7 +239,71 @@ body {
   width: 100%;
   padding: 20px;
   box-sizing: border-box;
-    position: relative; /* Keeps posts relative within the content */
-    width: 100%; /* Make sure it spans the full width */
+    position: relative; 
+    width: 100%; 
 
+}
+
+/* Search bar styles */
+.sidebar {
+  position: relative;
+  top: -18rem;
+  left: -40rem;
+}
+
+.search-bar {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.search-input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 200px;
+  transition: all 0.2s ease;
+}
+
+.search-input.shake {
+  animation: shake 0.3s ease;
+  border-color: red;
+}
+
+.search-button {
+  background-color: #247eba;
+  color: white;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 5rem;
+}
+
+.search-button:hover {
+  background-color: #1c6fa8;
+}
+
+.error-message {
+  color: red;
+  font-size: 14px;
+}
+
+
+@keyframes shake {
+  0%,
+  100% {
+      transform: translateX(0);
+  }
+  25% {
+      transform: translateX(-5px);
+  }
+  50% {
+      transform: translateX(5px);
+  }
+  75% {
+      transform: translateX(-5px);
+  }
 }

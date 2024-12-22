@@ -275,6 +275,43 @@ app.delete("/api/deletePost", (req, res) => {
 });
 
 
+// Get user details and posts
+app.get("/api/getUserDetails", (req, res) => {
+    const { username } = req.query;
+
+    if (!username) {
+        return res.status(400).send("Username is required.");
+    }
+
+    const userQuery = `
+        SELECT id, username 
+        FROM users 
+        WHERE username = ?;
+    `;
+    const postsQuery = `
+        SELECT id, text, photo, created_at 
+        FROM posts 
+        WHERE username = ?;
+    `;
+
+    db.query(userQuery, [username], (err, userResults) => {
+        if (err || userResults.length === 0) {
+            return res.status(404).send("User not found.");
+        }
+
+        const user = userResults[0];
+        db.query(postsQuery, [username], (err, postResults) => {
+            if (err) {
+                return res.status(500).send("Error fetching user posts.");
+            }
+
+            user.posts = postResults; // Add posts to the user data
+            res.status(200).json(user);
+        });
+    });
+});
+
+
 
 // Start server
 app.listen(5000, () => {

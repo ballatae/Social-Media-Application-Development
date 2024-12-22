@@ -6,6 +6,7 @@ import LoginForm from "./components/LoginForm";
 import PostsPage from "./components/PostsPage";
 import ProfilePage from "./components/ProfilePage";
 import AddPostPage from "./components/AddPostPage";
+import UserProfilePage from "./components/UserProfilePage";
 
 function App() {
   const [loggedInUser, setLoggedInUser] = useState(localStorage.getItem("username") || null);
@@ -58,6 +59,16 @@ function App() {
             )
           }
         />
+        <Route
+          path="/user/:username"
+          element={
+            loggedInUser ? (
+              <UserProfilePage />
+            ) : (
+              <Navigate to="/" />
+            )
+          }
+          />
       </Routes>
     </Router>
   );

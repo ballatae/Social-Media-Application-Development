@@ -35,6 +35,7 @@ const ProfilePage = ({ username, handleLogout }) => {
 
       const data = await res.text();
       if (res.status === 200) {
+        // updateUsername(tempUsername);
         setUpdatedUsername(tempUsername);
         setMessage("Profile updated successfully!");
         setIsEditing(false);
