@@ -1,87 +1,245 @@
 body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    background: linear-gradient(to right, #dadce1, #e7e8e9);
-    height: 100vh;
-  }
-  
-  .page-container {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    width: 100%;
-  }
-  
-  .navbar {
-    width: 100%;
-    background-color: #f8f9fa;
-    border-bottom: 1px solid #dcdcdc;
-    color: #333;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px; /* Space inside the navbar */
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1000;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  }
-  
-  .navbar-left {
-    font-size: 20px;
-    font-weight: bold;
-    cursor: pointer;
-  }
-  
-  .navbar-left .active {
-    color: #1976d2;
-    text-decoration: none;
-  }
-  
-  .navbar-right {
-    display: flex;
-    gap: 15px; 
-    margin-right: 2em; 
-  }
-  
-  button {
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-size: 14px;
-    cursor: pointer;
-    transition: background-color 0.3s ease-in-out, box-shadow 0.2s ease-in-out;
-    color: white;
-    cursor: pointer;
-  }
-  
-  .profile-button {
-    background-color: #64b5f6;
-  }
-  
-  .profile-button:hover {
-    background-color: #42a5f5;
-    box-shadow: 0px 4px 8px rgba(66, 165, 245, 0.3);
-  }
-  
-  .logout-button {
-    background-color: #ef5350;
-  }
-  
-  .logout-button:hover {
-    background-color: #e57373;
-    box-shadow: 0px 4px 8px rgba(239, 83, 80, 0.3);
-  }
-  
-  .content {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 24px;
-    color: #333;
-    margin-top: 60px; /* Offset to avoid overlap with fixed navbar */
-  }
-  
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to right, #dadce1, #e7e8e9);
+  min-height: 100vh; /* Ensure the body takes the full height */
+}
+
+.page-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+}
+
+.navbar {
+  width: 100%;
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #dcdcdc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  height: 60px;
+}
+
+.navbar-left {
+  font-size: 20px;
+  font-weight: bold;
+  color: #1976d2;
+  cursor: pointer;
+}
+
+.navbar-left .navbar-home {
+  text-decoration: none;
+  color: #1976d2;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-right: 2em;
+}
+
+.navbar-hello {
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+}
+
+.navbar-buttons {
+  display: flex;
+  gap: 15px;
+}
+
+.navbar-button {
+  background-color: #247eba;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.navbar-button:hover {
+  background-color: #1c6fa8;
+  box-shadow: 0px 4px 8px rgba(36, 126, 186, 0.3);
+}
+
+.logout-button {
+  background-color: #ef5350;
+}
+
+.logout-button:hover {
+  background-color: #e57373;
+  box-shadow: 0px 4px 8px rgba(239, 83, 80, 0.3);
+}
+
+.content {
+  position: absolute;
+  top: 10px; 
+  left: 50%; 
+  transform: translateX(-50%); 
+  width: 100%; 
+  max-width: 800px; 
+  margin: 0 auto; 
+}
+
+.add-post-button {
+  background-color: #247eba;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  margin: 10px 0;
+}
+
+.add-post-button:hover {
+  background-color: #1c6fa8;
+}
+
+.post-card {
+  background-color: white;
+  border-radius: 10px;
+  padding: 15px;
+  width: 30em;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px 0; 
+
+}
+
+.post-username {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.post-image {
+  width: 27em;
+  height: 20em;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.post-text {
+  font-size: 18px;
+  color: #555;
+  text-align: center;
+  line-height: 1.5;
+  word-wrap: break-word;
+}
+
+.post-info {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin: 10px 0;
+  font-size: 14px;
+  color: #666;
+}
+
+.buttons-container {
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.like-button,
+.comment-button {
+  width: 80px;
+  padding: 8px 12px;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+  text-align: center;
+}
+
+.like-button {
+  background-color: #247eba;
+  color: white;
+}
+
+.like-button.liked {
+  background-color: #28a745;
+}
+
+.like-button:hover {
+  background-color: #1c6fa8;
+}
+
+.like-button.liked:hover {
+  background-color: #218838;
+}
+
+.comment-button {
+  background-color: #28a745;
+  color: white;
+}
+
+.comment-button:hover {
+  background-color: #218838;
+}
+
+.comment-input {
+  width: 90%;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.comments-section {
+  margin-top: 10px;
+  text-align: left;
+  width: 100%;
+  padding: 5px;
+  border-top: 1px solid #ddd;
+}
+
+.comments-header {
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #444;
+}
+
+.comment-text {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+.no-comments {
+  font-size: 14px;
+  color: #aaa;
+  text-align: center;
+}
+
+.posts-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2em;
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+    position: relative; /* Keeps posts relative within the content */
+    width: 100%; /* Make sure it spans the full width */
+
+}

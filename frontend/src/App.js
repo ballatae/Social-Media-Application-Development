@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-d
 import LoginForm from "./components/LoginForm";
 import PostsPage from "./components/PostsPage";
 import ProfilePage from "./components/ProfilePage";
+import AddPostPage from "./components/AddPostPage";
 
 function App() {
   const [loggedInUser, setLoggedInUser] = useState(localStorage.getItem("username") || null);
@@ -42,6 +43,16 @@ function App() {
           element={
             loggedInUser ? (
               <ProfilePage username={loggedInUser} handleLogout={handleLogout} />
+            ) : (
+              <Navigate to="/" />
+            )
+          }
+        />
+        <Route
+          path="/add-post"
+          element={
+            loggedInUser ? (
+              <AddPostPage username={loggedInUser} />
             ) : (
               <Navigate to="/" />
             )
