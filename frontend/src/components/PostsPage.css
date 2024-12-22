@@ -78,6 +78,7 @@ body {
   .content {
     flex: 1;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     font-size: 24px;
@@ -85,3 +86,18 @@ body {
     margin-top: 60px; /* Offset to avoid overlap with fixed navbar */
   }
   
+
+  .add-post-button{
+    background-color: #247eba;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+  }
+
+  .add-post-button:hover{
+    background-color: #1c6fa8;
+  }
